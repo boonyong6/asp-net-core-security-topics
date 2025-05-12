@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentitySandbox.Mvc", "AspNetCoreIdentitySandbox.Mvc\AspNetCoreIdentitySandbox.Mvc.csproj", "{8318DAC1-A05A-4E73-98BA-A8F5CE220271}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8318DAC1-A05A-4E73-98BA-A8F5CE220271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8318DAC1-A05A-4E73-98BA-A8F5CE220271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8318DAC1-A05A-4E73-98BA-A8F5CE220271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8318DAC1-A05A-4E73-98BA-A8F5CE220271}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20D8766D-3DB4-4270-BA31-845DC652C121}
+	EndGlobalSection
+EndGlobal
