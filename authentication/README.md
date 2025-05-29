@@ -132,3 +132,17 @@
     - [Microsoft Entra ID](https://learn.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad)
     - [Azure Active Directory B2C (Azure AD B2C)](https://learn.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-custom-rest-api-netfw)
     - [Duende Identity Server](https://docs.duendesoftware.com/) (OIDC server)
+
+## Scaffold Register, Login, Logout, and RegisterConfirmation
+
+- Install package to scaffold identity pages:
+
+    ```bash
+    dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+    ```
+
+- Command to scaffold identity pages:
+
+    ```bash
+    dotnet aspnet-codegenerator identity -dc ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation"
+    ```
