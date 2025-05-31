@@ -82,3 +82,12 @@
     </ItemGroup>
   </Target>
   ```
+
+# How to secure Web APIs
+
+- Authentication schemes:
+
+  | Scheme       | Application |
+  | ------------ | ----------- |
+  | Cookie-based | Browser     |
+  | Token-based  | Mobile      |

@@ -1,0 +1,6 @@
+@AspNetCoreIdentitySandbox.WebApi_HostAddress = http://localhost:5030
+
+GET {{AspNetCoreIdentitySandbox.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
