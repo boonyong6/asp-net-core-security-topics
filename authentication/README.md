@@ -146,3 +146,62 @@
     ```bash
     dotnet aspnet-codegenerator identity -dc ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation"
     ```
+
+### Examine Register
+
+- `IUserStore<TUser>` - Provides API to set the user name.
+- `IUserEmailStore<TUser>` - Provides API to set the user email.
+- `UserManager<TUser>` - Provides APIs to manage user aggregate and its persistence store.
+    - `CreateAsync(TUser)` - Create a new user.
+    - `GenerateEmailConfirmationTokenAsync(TUser)` - Generate a token for email confirmation.
+
+### Disable default account verification
+
+- Default `Account.RegisterConfirmation` is used **only** for testing.
+- Automatic account verification should be disabled in production.
+    
+    ```csharp
+    public class RegisterConfirmationModel : PageModel
+    {
+        public async Task<IActionResult> OnGetAsync(string email, string returnUrl = null)
+        {
+            // ...
+            DisplayConfirmAccountLink = true;
+            // ...
+        }
+    }
+    ```
+
+### Log in, log out
+
+- `SignInManager<TUser>` - Provides APIs related to sign in.
+    - `PasswordSignInAsync()`
+    - `SignOutAsync()` - Clears the **user's claims** stored in a cookie.
+
+## Test Identity
+
+- Annotate classes or methods with `[Authorize]`.
+
+## Identity Components
+
+- Primary package - `Microsoft.AspNetCore.Identity` (included by `Microsoft.AspNetCore.Identity.EntityFrameworkCore`)
+
+## `AddDefaultIdentity` and `AddIdentity`
+
+- Calling `AddDefaultIdentity` is similar to calling `AddIdentity`, `AddDefaultUI` and `AddDefaultTokenProviders`.
+
+## Prevent publish of static Identity assets
+
+- Use case - When you are not using the default UI.
+
+    ```xml
+    <PropertyGroup>
+      <ResolveStaticWebAssetsInputsDependsOn>RemoveIdentityAssets</ResolveStaticWebAssetsInputsDependsOn>
+    </PropertyGroup>
+
+    <Target Name="RemoveIdentityAssets">
+      <ItemGroup>
+        <StaticWebAsset Remove="@(StaticWebAsset)" Condition="%(SourceId) == 'Microsoft.AspNetCore.Identity.UI'" />
+      </ItemGroup>
+    </Target>
+    ```

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AspNetCoreIdentitySandbox.Mvc.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace AspNetCoreIdentitySandbox.Mvc.Controllers;
 
@@ -18,6 +19,7 @@ public class HomeController : Controller
         return View();
     }
 
+    [Authorize]
     public IActionResult Privacy()
     {
         return View();
