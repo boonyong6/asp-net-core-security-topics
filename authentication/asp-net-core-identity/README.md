@@ -91,3 +91,13 @@
   | ------------ | ----------- |
   | Cookie-based | Browser     |
   | Token-based  | Mobile      |
+
+## Install NuGet packages
+
+- Commands to install the **main** _Identity_ package and _EF Core_ package:
+
+  ```bash
+  dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 8.0.16
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.16
+  dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.16
+  ```
