@@ -1,7 +1,7 @@
 # Introduction to Identity on ASP.NET Core
 
 - **NOT related** to the **Microsoft identity platform** (alternative identity solution).
-- Add UI login functionality to **ASP.NET Core web apps**. Examples:
+- Add UI login functionality to **ASP.NET Core web apps** (you can scaffold all the pages to find out all the routes). Examples:
   - /Identity/Account/Login
   - /Identity/Account/Logout
   - /Identity/Account/Manage
@@ -25,7 +25,7 @@
   dotnet aspnet-codegenerator identity -dc ApplicationDbContext --files "Account.Register;Account.Login;Account.Logout;Account.RegisterConfirmation"
   ```
 
-### Examine Register
+### Examine Register - `Register.cshtml.cs`
 
 - `IUserStore<TUser>` - Provides API to set the user name.
 - `IUserEmailStore<TUser>` - Provides API to set the user email.
@@ -33,7 +33,7 @@
   - `CreateAsync(TUser)` - Create a new user.
   - `GenerateEmailConfirmationTokenAsync(TUser)` - Generate a token for email confirmation.
 
-### Disable default account verification
+### Disable default account verification - `RegisterConfirmation.cshtml.cs`
 
 - Default `Account.RegisterConfirmation` is used **only** for testing.
 - Automatic account verification should be disabled in production.
@@ -49,7 +49,7 @@
   }
   ```
 
-### Log in, log out
+### Log in, log out - `Login.cshtml.cs`, `Logout.cshtml.cs`
 
 - `SignInManager<TUser>` - Provides APIs related to sign in.
   - `PasswordSignInAsync()`
@@ -61,7 +61,7 @@
 
 ## Identity Components
 
-- Primary package - `Microsoft.AspNetCore.Identity` (included by `Microsoft.AspNetCore.Identity.EntityFrameworkCore`)
+- **Primary package** - `Microsoft.AspNetCore.Identity` (included by `Microsoft.AspNetCore.Identity.EntityFrameworkCore`)
 
 ## `AddDefaultIdentity` and `AddIdentity`
 
