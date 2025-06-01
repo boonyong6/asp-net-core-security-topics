@@ -33,6 +33,14 @@ app.UseAuthorization();
 
 app.MapIdentityApi<IdentityUser>();  // Map Identity routes.
 
+// Logout endpoint for cookie-based authentication. Note: For token-based
+//   authentication, the client can simply delete the stored token.
+app.MapPost("/logout", async (SignInManager<IdentityUser> signInManager) =>
+{
+    await signInManager.SignOutAsync();  // Remove authentication-related cookies.
+    return Results.Ok();
+}).RequireAuthorization();
+
 app.MapControllers();
 
 app.Run();

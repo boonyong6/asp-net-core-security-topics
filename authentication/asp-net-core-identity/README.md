@@ -101,3 +101,20 @@
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.16
   dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.16
   ```
+
+## Test the API
+
+### Test login
+
+- Cookie-based authentication
+  - `/login?useCookies=true`
+- Token-based authentication (custom token)
+  - **Proprietary** to the ASP.NET Core Identity (not standard JWT).
+  - Primarily for simple scenarios.
+
+## Log out
+
+- Cookie-based authentication
+  - Requires to define a custom logout endpoint and call `await signInManager.SignOutAsync()`.
+- Token-based authentication
+  - Just delete the token from the client storage.
