@@ -1,5 +1,7 @@
+using AspNetCoreIdentitySandbox.WebApi;
 using AspNetCoreIdentitySandbox.WebApi.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAuthorization();  // Add authorization policy services.
 builder.Services.AddIdentityApiEndpoints<IdentityUser>()  // *Add Identity services to support Identity APIs.
     .AddEntityFrameworkStores<ApplicationDbContext>();
+// Configure email confirmation.
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.SignIn.RequireConfirmedEmail = true;
+});
+// [Optional] Customize emails sent.
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
