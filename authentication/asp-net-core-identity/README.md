@@ -16,7 +16,7 @@
 - Install package to scaffold identity pages:
 
   ```bash
-  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+  dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 8.0.7
   ```
 
 - Command to scaffold identity pages:
@@ -207,3 +207,11 @@
       "oldPassword": "string"
     }
     ```
+
+# Add, download, and delete custom user data
+
+- Command to scaffold a custom user class and identity pages:
+
+  ```csharp
+  dotnet aspnet-codegenerator identity -u ApplicationUser -fi "Account.Register;Account.Manage.Index"
+  ```
