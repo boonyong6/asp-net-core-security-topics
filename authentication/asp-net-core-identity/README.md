@@ -220,7 +220,17 @@
 
   ```bash
   dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 8.0.16
-  dotnet add package Microsoft.AspNetCore.Identity.UI --version 8.0.16
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.16
   dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.16
+  # 👇 For MVC or Razor Pages project only.
+  dotnet add package Microsoft.AspNetCore.Identity.UI --version 8.0.16
+  ```
+
+- `[PersonalData]` - Include the custom properties (aka profile fields) for download via `POST /Identity/Account/Manage/DownloadPersonalData`.
+
+  ```csharp
+  // DownloadPersonalData.cshtml.cs
+
+  var personalDataProps = typeof(ApplicationUser).GetProperties().Where(
+    prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
   ```
