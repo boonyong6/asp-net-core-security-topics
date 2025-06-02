@@ -212,6 +212,15 @@
 
 - Command to scaffold a custom user class and identity pages:
 
-  ```csharp
+  ```bash
   dotnet aspnet-codegenerator identity -u ApplicationUser -fi "Account.Register;Account.Manage.Index"
+  ```
+
+- If your project **does not have authentication** set up, **install** the following packages:
+
+  ```bash
+  dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore --version 8.0.16
+  dotnet add package Microsoft.AspNetCore.Identity.UI --version 8.0.16
+  dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 8.0.16
+  dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.16
   ```
