@@ -65,7 +65,24 @@
 
 ## `AddDefaultIdentity` and `AddIdentity`
 
-- Calling `AddDefaultIdentity` is similar to calling `AddIdentity`, `AddDefaultUI` and `AddDefaultTokenProviders`.
+- Calling `AddDefaultIdentity` is similar to calling `AddIdentity`, `AddDefaultUI` and `AddDefaultTokenProviders`:
+
+  ```csharp
+  services.AddAuthentication(o =>
+  {
+      o.DefaultScheme = IdentityConstants.ApplicationScheme;
+      o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+  })
+  .AddIdentityCookies(o => { });
+
+  services.AddIdentityCore<TUser>(o =>
+  {
+      o.Stores.MaxLengthForKeys = 128;
+      o.SignIn.RequireConfirmedAccount = true;
+  })
+  .AddDefaultUI()
+  .AddDefaultTokenProviders();
+  ```
 
 ## Prevent publish of static Identity assets
 
@@ -234,3 +251,59 @@
   var personalDataProps = typeof(ApplicationUser).GetProperties().Where(
     prop => Attribute.IsDefined(prop, typeof(PersonalDataAttribute)));
   ```
+
+# \*Identity model customization in ASP.NET Core
+
+## The Identity model
+
+### Entity type relationships
+
+![identity-erd](images/identity-erd.png)
+
+### [Default model configuration](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/customize-identity-model?view=aspnetcore-9.0#default-model-configuration)
+
+### Model generic types
+
+- **Default entity types** defined by Identity:
+  - `IdentityUser`
+  - `IdentityRole`
+  - `IdentityUserClaim`
+  - `IdentityUserToken`
+  - `IdentityUserLogin`
+  - `IdentityRoleClaim`
+  - `IdentityUserRole`
+- Can be used as **base classes** for the custom types.
+- Use `IdentityDbContext` to use Identity with **support for roles**.
+- Use `IdentityUserContext<TUser>` to use Identity **without roles (only claims)**.
+
+## Customize the model
+
+- When overriding `OnModelCreating`, `base.onModelCreating` should be **called first**.
+
+### Change the primary key type
+
+- Example:
+
+  ```csharp
+  public class ApplicationDbContext
+      : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
+  {
+      public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+          : base(options)
+      {
+      }
+  }
+  ```
+
+- To register custom database context class:
+
+  ```csharp
+  services.AddIdentity<ApplicationUser, ApplicationRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
+  ```
+
+### Add navigation properties
+
+- `TKey` is the type specified for the **PK of users**.
