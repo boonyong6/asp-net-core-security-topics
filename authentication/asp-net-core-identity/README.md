@@ -307,3 +307,41 @@
 ### Add navigation properties
 
 - `TKey` is the type specified for the **PK of users**.
+
+# Configure ASP.NET Core Identity
+
+## Identity options
+
+- `IdentityOptions` must be set **after** calling `AddIdentity` or `AddDefaultIdentity`.
+
+### Claims Identity
+
+- `ClaimsIdentityOptions`
+
+  | Property            | Default                     |
+  | ------------------- | --------------------------- |
+  | `UserIdClaimType`   | `ClaimTypes.NameIdentifier` |
+  | `UserNameClaimType` | `ClaimTypes.Name`           |
+
+### Lockout
+
+- A successful authentication resets the failed access attempts count and resets the clock.
+
+### Cookie settings
+
+- `ConfigureApplicationCookie` must be called after calling `AddIdentity` or `AddDefaultIdentity`.
+
+## `ISecurityStampValidator` and `SignOut` everywhere
+
+- Context:
+  - `ClaimsPrincipal` **should be regenerated** when joining a role, changing the password, or other security sensitive events.
+  - Identity uses the `ISecurityStampValidator` to regenerate the `ClaimsPrincipal`.
+  - Only relevant for **cookie-based** authentication.
+- Validator hooks into the `OnValidatePrincipal` event, and calls in at regular **intervals** to **verify the user's security stamp**.
+- Call `userManager.UpdateSecurityStampAsync(user)` to force **existing cookies to be invalidated**, in turn **sign out everywhere**.
+- To **validate security stamp** every minute:
+
+  ```csharp
+  builder.Services.Configure<SecurityStampValidatorOptions>(o =>
+    o.ValidationInterval = TimeSpan.FromMinutes(1));
+  ```
