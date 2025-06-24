@@ -345,3 +345,60 @@
   builder.Services.Configure<SecurityStampValidatorOptions>(o =>
     o.ValidationInterval = TimeSpan.FromMinutes(1));
   ```
+
+# Custom storage providers for ASP.NET Core Identity
+
+- This section covers the important **concepts**, but **isn't a step-by-step walkthrough**.
+
+## Introduction
+
+- By default, user information is stored in a **SQL Server** using **EF Core**.
+- But, you can use a **different persistence mechanism** or **data schema**. E.g.:
+  - Use **another data store** (e.g. [Azure Table Storage](https://learn.microsoft.com/en-us/azure/storage/)).
+  - Database tables have a **different structure/schema**.
+  - Use a **different data access approach** (e.g. [Dapper](https://github.com/DapperLib/Dapper)).
+
+## The ASP.NET Core Identity architecture
+
+- Consists of **classes** called **managers** and **stores**.
+- **_Managers_**
+  - **High-level classes** use to perform operations, such as creating an Identity user.
+  - Decoupled from stores.
+- **_Stores_**
+  - **Lower-level classes** that specify **how entities (e.g. users, roles) are persisted**.
+  - Follow the **repository pattern** and are closely **coupled with the persistence mechanism**.
+- So, you can replace the persistence mechanism without changing your application code.
+- **Identity architecture:**
+
+  ![identity-architecture](images/identity-architecture.png)
+
+## The data access layer
+
+- Only need to create persistence mechanisms for features that you intend to use.
+- Might include the following classes to store user and role information:
+  - Context class
+    - Encapsulates the **information to connect** to your persistence mechanism and **execute queries/perform data operation**.
+  - Data access classes:
+    - User Storage
+    - Role Storage
+    - UserClaims Storage
+    - UserLogins Storage (external authentication provider)
+    - UserRole Storage
+- Example:
+
+  ```csharp
+  // In store class...
+
+  public async Task<IdentityResult> CreateAsync(ApplicationUser user,
+    CancellationToken cancellationToken = default(CancellationToken))
+  {
+    cancellationToken.ThrowIfCancellationRequested();
+    if (user == null) throw new ArgumentNullException(nameof(user));
+
+    return await _usersTable.CreateAsync(user);  // <--
+  }
+  ```
+
+## Customize the user class
+
+- ...
