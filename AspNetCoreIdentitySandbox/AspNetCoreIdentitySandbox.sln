@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentitySandbox.W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentitySandbox.Razor", "AspNetCoreIdentitySandbox.Razor\AspNetCoreIdentitySandbox.Razor.csproj", "{C352F16F-E982-4FE3-BCC6-C509C60E552C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCoreIdentitySandbox.CustomStorageProviders", "AspNetCoreIdentitySandbox.CustomStorageProviders\AspNetCoreIdentitySandbox.CustomStorageProviders.csproj", "{008DB713-AC10-47BC-A427-DDDC545EA3AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C352F16F-E982-4FE3-BCC6-C509C60E552C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C352F16F-E982-4FE3-BCC6-C509C60E552C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C352F16F-E982-4FE3-BCC6-C509C60E552C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008DB713-AC10-47BC-A427-DDDC545EA3AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008DB713-AC10-47BC-A427-DDDC545EA3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008DB713-AC10-47BC-A427-DDDC545EA3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008DB713-AC10-47BC-A427-DDDC545EA3AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

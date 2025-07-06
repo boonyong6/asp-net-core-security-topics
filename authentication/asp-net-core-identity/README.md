@@ -401,4 +401,21 @@
 
 ## Customize the user class
 
-- ...
+- At a minimum, your **user class** (custom) **must include** an `Id` and a `UserName` property.
+
+## Customize the user store
+
+- In your `UserStore` class, implement `IUserStore<TUser>` and the optional interfaces required.
+
+### Optional interfaces
+
+- `IUserRoleStore`
+- `IUserClaimStore`
+- `IUserPasswordStore`
+- `IUserSecurityStampStore`
+- `IUserEmailStore`
+- `IUserPhoneNumberStore`
+- `IQueryableUserStore`
+- `IUserLoginStore`
+- `IUserTwoFactorStore`
+- `IUserLockoutStore`
