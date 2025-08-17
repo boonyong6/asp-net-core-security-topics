@@ -406,8 +406,10 @@
 ## Customize the user store
 
 - In your `UserStore` class, implement `IUserStore<TUser>` and the optional interfaces required.
+- Within the `UserStore` class, use the **data access classes** (e.g. `AzureTableStorageUsersTable`, `DapperUsersTable`) to perform operations.
+- More info: [Interfaces to implement when customizing user store](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-custom-storage-providers?view=aspnetcore-9.0#interfaces-to-implement-when-customizing-user-store)
 
-### Optional interfaces
+### Optional interfaces (Inherit from `IUserStore<TUser>`)
 
 - `IUserRoleStore`
 - `IUserClaimStore`
@@ -416,6 +418,16 @@
 - `IUserEmailStore`
 - `IUserPhoneNumberStore`
 - `IQueryableUserStore`
-- `IUserLoginStore`
+- `IUserLoginStore` - Implement to enable external authentication providers.
 - `IUserTwoFactorStore`
 - `IUserLockoutStore`
+
+## Customize the role class
+
+- No need to implement a particular interface, but:
+  - **Must have** an `Id`.
+  - Typically have a `Name` property.
+
+## Customize the role store
+
+- In your `RoleStore` class, implement `IRoleStore<TUser>` and optionally `IQueryableRoleStore<TRole>`.

@@ -1,17 +1,22 @@
 using AspNetCoreIdentitySandbox.CustomStorageProviders.Data;
+using AspNetCoreIdentitySandbox.CustomStorageProviders.Entities;
+using AspNetCoreIdentitySandbox.CustomStorageProviders.Repositories;
+using Azure.Data.Tables;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+// Add services to the container...
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+// Add identity types
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true);
+
+// Identity Services
+builder.Services.AddTransient<IUserStore<ApplicationUser>, CustomUserStore>();
+var connectionString = builder.Configuration["Azure:StorageAccount:ConnectionString"];
+builder.Services.AddSingleton<TableServiceClient>(sp => new(connectionString));
+builder.Services.AddTransient<IUsersTable, AzureTableStorageUsersTable>();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
