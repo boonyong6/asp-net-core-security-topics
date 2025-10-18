@@ -465,3 +465,11 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
     o.TokenLifespan = TimeSpan.FromHours(3);  // Default is one day.
 });
 ```
+
+## [Combine social and local login accounts](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/accconfirm?view=aspnetcore-9.0&tabs=visual-studio#combine-social-and-local-login-accounts)
+
+## Enable account confirmation after a site has users
+
+- Two ways to handle:
+  1. Update the database to mark all existing users are being confirmed.
+  2. Batch-send emails with confirmation links.
