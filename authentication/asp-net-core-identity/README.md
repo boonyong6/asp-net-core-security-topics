@@ -431,3 +431,37 @@
 ## Customize the role store
 
 - In your `RoleStore` class, implement `IRoleStore<TUser>` and optionally `IQueryableRoleStore<TRole>`.
+
+# Account confirmation and password recovery in ASP.NET Core
+
+- **Topics covered:** Email confirmation, password reset
+
+## Configure an email provider
+
+- Recommend using SendGrid or another email service rather than SMTP.
+  - SMTP is difficult to secure and set up correctly.
+
+## Resend email confirmation
+
+### Change email and activity timeout
+
+```csharp
+// Program.cs
+
+builder.Services.ConfigureApplicationCookie(o => {
+    o.ExpireTimeSpan = TimeSpan.FromDays(5);
+    o.SlidingExpiration = true;
+});
+```
+
+### Change all data protection token lifespans
+
+```csharp
+// Program.cs
+
+// Configure GLOBAL Identity token lifespans.
+builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
+{
+    o.TokenLifespan = TimeSpan.FromHours(3);  // Default is one day.
+});
+```
