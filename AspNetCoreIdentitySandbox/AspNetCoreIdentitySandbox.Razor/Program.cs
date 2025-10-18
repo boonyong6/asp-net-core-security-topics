@@ -1,4 +1,5 @@
 using AspNetCoreIdentitySandbox.Razor.Areas.Identity.Data;
+using AspNetCoreIdentitySandbox.Razor.Identity;
 using AspNetCoreIdentitySandbox.Razor.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -9,7 +10,19 @@ var connectionString = builder.Configuration.GetConnectionString("IdentityDataCo
 
 builder.Services.AddDbContext<IdentityDataContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<IdentityDataContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(config =>
+{
+    config.SignIn.RequireConfirmedEmail = true;
+
+    // Change the email token lifespan
+    config.Tokens.ProviderMap.Add("CustomEmailConfirmation", 
+        new TokenProviderDescriptor(
+            typeof(CustomEmailConfirmationTokenProvider<ApplicationUser>)));
+    config.Tokens.EmailConfirmationTokenProvider = "CustomEmailConfirmation";
+}).AddEntityFrameworkStores<IdentityDataContext>();
+
+// Change the email token lifespan
+builder.Services.AddTransient<CustomEmailConfirmationTokenProvider<ApplicationUser>>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
