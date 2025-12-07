@@ -473,3 +473,12 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(o =>
 - Two ways to handle:
   1. Update the database to mark all existing users are being confirmed.
   2. Batch-send emails with confirmation links.
+
+# Enable QR code generation for TOTP authenticator apps in ASP.NET Core
+
+- TOTP code should be **kept secret** because it can be used **multiple times** before it expires.
+- 2FA does not happen using an external authentication provider.
+
+## Adding QR codes to the 2FA configuration page
+
+- Using [`qrcode.js`](https://davidshimjs.github.io/qrcodejs/).
